@@ -1,26 +1,8 @@
-module.exports = function(opts) {
+'use strict';
 
-	var facade = new function(){};
+let november = require('wikijs').default().page('november');
 
-	var day;
-	
-	for(day=0; day <= 31; day++) {
-		facade["day" + day] = (function(d) {
-			return function() {
-				this.day = d;
-				
-				return this;
-			}
-		})(day);
-	}
-	
-	facade.translate = function(toL) {
-		return ({
-			french 	: "Novembre",
-			spanish	: "Noviembre",
-			german  : "November"
-		})[toL] || null;
-	}
-	
-	return facade;
+module.exports = {
+	data : () => november.then(page => page.content()),
+	images : () => november.then(page => page.images())
 };
